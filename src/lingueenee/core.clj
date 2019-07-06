@@ -6,5 +6,7 @@
   "I don't do a whole lot ... yet."
   [& args]
   (println "Hello, World!")
-  (def url (client/from-to-langs "deutsch" "englisch" ))
-  (println url))
+  (let [response (client/get-body-of client/base-url)] 
+    (println response))
+  (let [parsed (client/parse-body response)]
+    (println parsed)))
