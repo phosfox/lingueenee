@@ -4,7 +4,12 @@
             [hickory.core :as hickory]
             [hickory.select :as selector]))
 
-(def base-url "https://www.linguee.de/deutsch-englisch/search?source=auto&query=gerne")
+(def base-url "https://www.linguee.de/deutsch-englisch/search?source=auto&query=")
+
+(defn concat-url
+  "Concatenates search query to base url"
+  [query]
+  (str base-url query))
 
 (defn get-body-of
   "Returns the html-body of the given url"
@@ -28,6 +33,7 @@
   [selections]
   (take 5 (map :content selections)))
 
-(def run
+(defn translate
   "Does everything"
-  (-> base-url get-body-of parse-body hickory/as-hickory select-dictLink get-content))
+  [word]
+  (-> (concat-url word) get-body-of parse-body hickory/as-hickory select-dictLink get-content))

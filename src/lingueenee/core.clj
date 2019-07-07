@@ -4,8 +4,10 @@
   (:gen-class))
 
 (defn -main
-  "I don't do a whole lot ... yet."
+  "Starts the programm"
   [& args]
-  (println "Results:")
-  (let [response client/run]
-    (println response)))
+  (if (= (count args) 0)
+    (println "Please pass in a german word to translate")
+    (do
+      (print "Results:")
+      (println (client/translate args)))))
